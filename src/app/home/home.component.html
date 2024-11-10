@@ -1,0 +1,90 @@
+
+<p-toast></p-toast>
+
+<p-card header="Notas">
+    <p class="m-0">
+        Registro de Notas de los estudiantes universitarios de la UPeU
+    </p>
+</p-card>
+
+<p-toolbar>
+    <div class="p-toolbar-group-left">
+        <button pButton type="button" label="Nueva Nota" icon="pi pi-plus" class="p-mr-2" (click)="openNew()"></button>
+    </div>
+</p-toolbar>
+
+<p-card header="Listar Notas">
+    <p-table *ngIf="notas && notas.length > 0" [value]="notas" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>Alumno</th>
+                <th>Curso</th>
+                <th>Nota 1</th>
+                <th>Nota 2</th>
+                <th>Nota 3</th>
+                <th>Promedio</th>
+                <th style="width: 8rem">Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-nota>
+            <tr>
+                <td>{{ nota.id }}</td>
+                <td>{{ nota.alumno.nombres }} {{ nota.alumno.apellidos }}</td>
+                <td>{{ nota.curso.nombre }}</td>
+                <td>{{ nota.nota1 }}</td>
+                <td>{{ nota.nota2 }}</td>
+                <td>{{ nota.nota3 }}</td>
+                <td>{{ nota.promedio }}</td>
+                <td>
+                    <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editNota(nota)"></button>
+                    <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteNota(nota)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p *ngIf="notas?.length === 0">No hay notas para mostrar.</p>
+</p-card>
+
+<p-dialog [(visible)]="escuelaDialog" [modal]="true" [style]="{width: '50vw', height: '70vh', 'min-height': '500px'}" header="Detalles de la Nota" [closable]="false">
+    <div class="p-fluid">
+        <div class="p-field">
+            <label for="alumno">Alumno</label>
+            <p-dropdown id="alumno" [(ngModel)]="nota.alumno.id" [options]="alumnos" optionLabel="nombres" optionValue="id" filter="true" placeholder="Selecciona Alumno">
+            </p-dropdown>
+        </div>
+
+        <div class="p-field">
+            <label for="curso">Curso</label>
+            <p-dropdown id="curso" [(ngModel)]="nota.curso.id" [options]="cursos" optionLabel="nombre" optionValue="id" filter="true" placeholder="Selecciona Curso">
+            </p-dropdown>
+        </div>
+
+        <div class="p-field">
+            <label for="nota1">Nota 1</label>
+            <input id="nota1" type="number" pInputText [(ngModel)]="nota.nota1" required />
+        </div>
+
+        <div class="p-field">
+            <label for="nota2">Nota 2</label>
+            <input id="nota2" type="number" pInputText [(ngModel)]="nota.nota2" required />
+        </div>
+
+        <div class="p-field">
+            <label for="nota3">Nota 3</label>
+            <input id="nota3" type="number" pInputText [(ngModel)]="nota.nota3" required />
+        </div>
+
+        <div class="p-field">
+            <label for="promedio">Promedio</label>
+            <input id="promedio" type="number" pInputText [(ngModel)]="nota.promedio" disabled />
+        </div>
+    </div>
+
+    <p-footer>
+        <button pButton type="button" label="Guardar" icon="pi pi-check" (click)="saveNota()"></button>
+        <button pButton type="button" label="Cancelar" icon="pi pi-times" class="p-button-secondary" (click)="hideDialog()"></button>
+    </p-footer>
+</p-dialog>
+
+<p-confirmDialog></p-confirmDialog>

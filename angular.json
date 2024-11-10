@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "app-examen": {
+    "app-sustitutorio": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/app-examen",
+            "outputPath": "dist/app-sustitutorio",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -27,7 +27,12 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/primeng/resources/themes/saga-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "primeflex/themes/primeone-light.css",   
+              "primeflex/themes/primeone-dark.css"  
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -64,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "app-examen:build:production"
+              "buildTarget": "app-sustitutorio:build:production"
             },
             "development": {
-              "buildTarget": "app-examen:build:development"
+              "buildTarget": "app-sustitutorio:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -97,5 +102,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "a5818761-6abd-4276-84db-32bc21588535"
   }
 }
